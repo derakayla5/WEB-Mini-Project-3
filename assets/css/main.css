@@ -1,0 +1,14 @@
+html {
+  scroll-behavior: smooth;
+}
+
+/* Garis horizontal di sebelah teks */
+.horizontal-line::after {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  width: 200px;
+  height: 3px;
+  margin-left: 15px;
+  background-color: black;
+}
