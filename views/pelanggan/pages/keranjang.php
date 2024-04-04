@@ -1,3 +1,17 @@
+<?php
+require("../../../koneksi.php");
+
+$query = "SELECT * FROM keranjang";
+$result = mysqli_query($koneksi, $query);
+
+session_start();
+
+if (!($_SESSION['role'] == "pelanggan")) {
+  header('Location: ../../../views/auth/pages/login.php');
+  exit;
+}
+?>
+
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
 
@@ -23,31 +37,35 @@
     <div class="d-flex mt-4">
       <!-- Isi keranjang -->
       <div class="w-75 me-4">
-        <?php for ($i = 0; $i < 8; $i++) { ?>
-          <div class="d-flex">
-            <div class="me-3">
-              <img src="https://dummyimage.com/144x144/000/ffffff" alt="" style="height: 100px;">
-            </div>
+        <?php
+        // Perulangan untuk menampilkan daftar barang
+        while ($row = mysqli_fetch_assoc($result)) { ?>
+          <form action="../../../process/util_pelanggan/hapus_barang.php" method="post">
+            <div class="d-flex">
+              <div class="me-3">
+                <?php
+                echo '<img class="square-img" src="../../.  /storage/img_barang/' . $row['gambar_barang'] . '" alt="Product Image" style="max-width: 175px; height: auto;">';
+                ?>
+              </div>
 
-            <div class="">
-              <h5>Ini Nama Alat Musik Aneh</h5>
+              <div class="">
+                <h5><?= $row['nama_barang'] ?></h5>
 
-              <!-- Quantity -->
-              <div class="d-flex align-items-center mb-2">
-                <div class="input-group w-50 border border-black rounded-3 input-group-sm">
-                  <button class="btn" type="button" id="btn-minus">-</button>
-                  <input type="number" class="form-control text-center m-0 p-0" value="1" min="1" max="10" id="quantity">
-                  <button class="btn" type="button" id="btn-plus">+</button>
+                <!-- Quantity -->
+                <div class="d-flex align-items-center mb-2">
+                  <input type="number" class="form-control text-center" value=<?= $row['jumlah_barang'] ?> min="1" max="10" id="stok" name="stok" data-harga="<?= $row['harga_barang'] ?>">
                 </div>
-              </div>
 
-              <!-- Harga -->
-              <div class="fw-bold">
-                Rp69.000.000
+                <!-- Harga -->
+                <div class=" fw-bold">
+                  <div class="fw-bold harga_barang"><?= $row['harga_barang'] ?></div>
+                </div>
+                <!-- Isi form -->
+                <button type="submit" name="aksi" value="hapus" class="btn btn-danger">Hapus</button>
+                <input type="hidden" name="id" value="<?= $row['id'] ?>">
               </div>
             </div>
-          </div>
-
+          </form>
           <hr>
         <?php } ?>
       </div>
@@ -60,7 +78,7 @@
 
             <!-- Total -->
             <div class="mb-3">
-              Total: <span class="fw-bold fs-5">Rp69.690.000</span>
+              Total: <span id="subtotal" class="fw-bold fs-5">Rp0</span>
             </div>
 
             <!-- Beli -->
@@ -78,6 +96,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
   <script src="../../../assets/js/numeric-stepper.js"></script>
+  <script src="../../../assets/js/keranjang.js"></script>
 </body>
 
 </html>

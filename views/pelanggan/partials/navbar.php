@@ -13,8 +13,8 @@
 
             <!-- Search -->
             <li class="nav-item d-flex align-items-center">
-              <form role="search">
-                <input class="form-control me-2 rounded-1 bg-secondary-subtle" type="search" placeholder="Cari produk kami di sini" aria-label="Search" style="width: 80vh;">
+              <form action="semua_barang.php" method="GET" role="search">
+                <input class="form-control me-2 rounded-1 bg-secondary-subtle" type="search" name="keyword" placeholder="Cari produk kami di sini" aria-label="Search" style="width: 80vh;">
               </form>
             </li>
           </ul>
@@ -23,19 +23,14 @@
         <!-- Kanan -->
         <div>
           <ul class="navbar-nav">
-            <!-- Hubungi kami -->
-            <li class="nav-item">
-              <a class="nav-link" href="#">Hubungi kami</a>
-            </li>
-
             <!-- Wishlist -->
             <li class="nav-item">
-              <a class="nav-link" href="#"><i class="fa-solid fa-heart"></i></a>
+              <a class="nav-link" href="../pages/wishlist.php"><i class="fa-solid fa-heart"></i></a>
             </li>
 
             <!-- Keranjang -->
             <li class="nav-item">
-              <a class="nav-link" href="#"><i class="fa-solid fa-cart-shopping"></i></a>
+              <a class="nav-link" href="../pages/keranjang.php"><i class="fa-solid fa-cart-shopping"></i></a>
             </li>
 
             <!-- Akun -->
@@ -44,7 +39,7 @@
                 <i class="fa-solid fa-user"></i>
               </a>
               <ul class="dropdown-menu dropdown-menu-lg-end">
-                <li><a class="dropdown-item" href="#">Log out</a></li>
+                <li><a class="dropdown-item" href="../../../process/auth/logout.php">Log out</a></li>
               </ul>
             </li>
           </ul>
@@ -56,7 +51,7 @@
         <ul class="navbar-nav">
           <!-- Barang terbaik -->
           <li class="nav-item me-4">
-            <a class="nav-link fw-bold text-black" href="#pilihanTop">PILIHAN PALING TOP</a>
+            <a class="nav-link fw-bold text-black" href="beranda.php#pilihanTop">PILIHAN PALING TOP</a>
           </li>
 
           <!-- Semua barang -->
@@ -66,12 +61,7 @@
 
           <!-- Kategori barang -->
           <li class="nav-item me-4">
-            <a class="nav-link fw-bold text-black" href="#kategoriBarang">KATEGORI BARANG</a>
-          </li>
-
-          <!-- Tentang kami -->
-          <li class="nav-item">
-            <a class="nav-link fw-bold text-black" href="#">TENTANG KAMI</a>
+            <a class="nav-link fw-bold text-black" href="beranda.php#kategoriBarang">KATEGORI BARANG</a>
           </li>
         </ul>
       </div>

@@ -1,10 +1,28 @@
+<?php
+session_start();
+
+if (isset($_SESSION['login'])) {
+  if ($_SESSION['role'] == 'admin') {
+    header("Location: ../../admin/pages/dashboard.php");
+    exit();
+  } elseif ($_SESSION['role'] == 'pegawai_toko') {
+    header("Location: ../../pegawai_toko/pages/semua_barang.php");
+    exit();
+  } elseif ($_SESSION['role'] == 'pelanggan') {
+    header("Location: ../../pelanggan/pages/beranda.php");
+    exit();
+  }
+}
+?>
+
+
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Log In | Tamusic</title>
+  <title>Register | Tamusic</title>
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 
@@ -19,7 +37,7 @@
       <div class="card-body m-3">
         <h4 class="card-subtitle mb-4 fw-bold" id="card-subtitle">REGISTER</h4>
 
-        <form method="POST" action="../../../proses/login.php" id="loginForm">
+        <form method="POST" action="../../../process/auth/register.php" id="loginForm">
           <!-- Nama -->
           <div class="mb-3">
             <label for="nama" class="form-label fw-semibold text-body-secondary">Nama</label>
@@ -41,11 +59,11 @@
           <!-- Konfirmasi password-->
           <div class="mb-4">
             <label for="konfirmasi_password" class="form-label fw-semibold text-body-secondary">Konfirmasi Password</label>
-            <input type="konfirmasi_password" class="form-control" name="konfirmasi_password">
+            <input type="password" class="form-control" name="konfirmasi_password">
           </div>
 
           <!-- Tombol register -->
-          <button class="btn btn-primary w-100 py-2 mb-3" type="submit" name="login">Log in</button>
+          <button class="btn btn-primary w-100 py-2 mb-3" type="submit" name="login">Register</button>
 
           <p class="m-0">Sudah punya akun? Silakan <a href="login.php">login</a></p>
         </form>

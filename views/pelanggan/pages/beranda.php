@@ -1,3 +1,14 @@
+<?php
+require_once "../../../koneksi.php";
+
+session_start();
+
+if (!($_SESSION['role'] == "pelanggan")) {
+  header('Location: ../../../views/auth/pages/login.php');
+  exit;
+}
+?>
+
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
 
@@ -26,20 +37,41 @@
     <div class="container">
       <div id="carouselExampleIndicators" class="carousel slide">
         <div class="carousel-indicators">
-          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          <?php
+          // Query untuk mendapatkan data carousel
+          $queryCarousel = "SELECT * FROM carousel_images";
+          $resultCarousel = mysqli_query($koneksi, $queryCarousel);
+          $indicatorIndex = 0;
+
+          // Iterasi melalui hasil query untuk menampilkan indicator
+          while ($rowCarousel = mysqli_fetch_assoc($resultCarousel)) {
+            // Menampilkan indicator untuk setiap gambar carousel
+            $active = $indicatorIndex == 0 ? 'active' : '';
+          ?>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<?= $indicatorIndex ?>" class="<?= $active ?>" aria-current="true" aria-label="Slide <?= $indicatorIndex + 1 ?>"></button>
+          <?php
+            $indicatorIndex++;
+          }
+          ?>
         </div>
         <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src="https://dummyimage.com/1680x720/000/fff" class="d-block w-100" alt="...">
-          </div>
-          <div class="carousel-item">
-            <img src="https://dummyimage.com/1680x720/000/dead45" class="d-block w-100" alt="...">
-          </div>
-          <div class="carousel-item">
-            <img src="https://dummyimage.com/1680x720/000/36d64b" class="d-block w-100" alt="...">
-          </div>
+          <?php
+          // Set ulang indeks untuk mengatur gambar pertama sebagai aktif
+          mysqli_data_seek($resultCarousel, 0);
+          $carouselIndex = 0;
+
+          // Iterasi melalui hasil query untuk menampilkan gambar carousel
+          while ($rowCarousel = mysqli_fetch_assoc($resultCarousel)) {
+            // Menampilkan gambar carousel dalam tag <img>
+            $active = $carouselIndex == 0 ? 'active' : '';
+          ?>
+            <div class="carousel-item <?= $active ?>">
+              <img src="../../../storage/carousel/<?= $rowCarousel["image_url"] ?>" class="d-block w-100" alt="...">
+            </div>
+          <?php
+            $carouselIndex++;
+          }
+          ?>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -61,23 +93,26 @@
       <div class="container mt-4">
         <div class="row row-cols-1 row-cols-md-5 g-4">
           <?php
-          for ($i = 0; $i < 5; $i++) {
+          $queryTop = "SELECT * FROM barang ORDER BY rating DESC LIMIT 5";
+          $resultTop = mysqli_query($koneksi, $queryTop);
+
+          while ($rowTop = mysqli_fetch_assoc($resultTop)) {
           ?>
             <div class="col">
               <div class="card">
-                <img src="https://dummyimage.com/360x360/000/ffffff" class="card-img-top" alt="...">
+                <img src="../<?= $rowTop["gambar"] ?>" class="card-img-top square-img" alt="...">
                 <div class="card-body">
                   <!-- Nama barang -->
-                  <h5 class="card-title mb-2">Nama Alat Musik Keren Banget</h5>
+                  <h5 class="card-title mb-2"><?= $rowTop["nama"] ?></h5>
 
                   <!-- Rating -->
                   <div class="mb-2">
                     <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                    4.69/5
+                    <?= $rowTop["rating"] ?>
                   </div>
 
                   <!-- Harga -->
-                  <p class="m-0 fw-bold fs-5">Rp29.000.000</p>
+                  <p class="m-0 fw-bold fs-5"><?= number_format($rowTop["harga"], 0, ',', '.')  ?></p>
                 </div>
               </div>
             </div>
@@ -98,23 +133,26 @@
       <div class="container mt-4">
         <div class="row row-cols-1 row-cols-md-5 g-4">
           <?php
-          for ($i = 0; $i < 5; $i++) {
+          $queryNew = "SELECT * FROM barang ORDER BY created_at DESC LIMIT 5";
+          $resultNew = mysqli_query($koneksi, $queryNew);
+
+          while ($rowNew = mysqli_fetch_assoc($resultNew)) {
           ?>
             <div class="col">
               <div class="card">
-                <img src="https://dummyimage.com/360x360/000/ffffff" class="card-img-top" alt="...">
+                <img src="../<?= $rowNew["gambar"] ?>" class="card-img-top square-img" alt="...">
                 <div class="card-body">
                   <!-- Nama barang -->
-                  <h5 class="card-title mb-2">Nama Alat Musik Keren Banget</h5>
+                  <h5 class="card-title mb-2"><?= $rowNew["nama"] ?></h5>
 
                   <!-- Rating -->
                   <div class="mb-2">
                     <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                    4.2/5
+                    <?= $rowNew["rating"] ?>
                   </div>
 
                   <!-- Harga -->
-                  <p class="m-0 fw-bold fs-5">Rp18.000.000</p>
+                  <p class="m-0 fw-bold fs-5"><?= number_format($rowNew["harga"], 0, ',', '.')  ?></p>
                 </div>
               </div>
             </div>
@@ -127,31 +165,68 @@
   </div>
 
   <!-- Kategori barang -->
+  <!-- Kategori barang -->
   <div class="mt-5" id="kategoriBarang">
     <div class="container">
       <h4 class="fw-bold horizontal-line">KATEGORI ALAT MUSIK</h4>
 
       <div class="container mt-4">
         <div class="row row-cols-1 row-cols-md-5 g-4">
-          <?php
-          for ($i = 0; $i < 5; $i++) {
-          ?>
-            <div class="col">
-              <div class="card border-0">
-                <img src="https://dummyimage.com/360x360/000/ffffff" class="card-img-top rounded-circle" alt="...">
-                <div class="card-body pt-2">
-                  <h5 class="card-title mb-2 text-center">Gitar</h5>
-                </div>
+
+          <!-- Gitar -->
+          <div class="col">
+            <div class="card border-0">
+              <img src="../../../assets/icons/gitar.png" class="card-img-top" alt="...">
+              <div class="card-body pt-2">
+                <h5 class="card-title mb-2 text-center">Gitar</h5>
               </div>
             </div>
-          <?php
-          }
-          ?>
+          </div>
+
+          <!-- Drum -->
+          <div class="col">
+            <div class="card border-0">
+              <img src="../../../assets/icons/drum.png" class="card-img-top" alt="...">
+              <div class="card-body pt-2">
+                <h5 class="card-title mb-2 text-center">Drum</h5>
+              </div>
+            </div>
+          </div>
+
+          <!-- Trompet -->
+          <div class="col">
+            <div class="card border-0">
+              <img src="../../../assets/icons/trumpet.png" class="card-img-top" alt="...">
+              <div class="card-body pt-2">
+                <h5 class="card-title mb-2 text-center">Trompet</h5>
+              </div>
+            </div>
+          </div>
+
+          <!-- Biola -->
+          <div class="col">
+            <div class="card border-0">
+              <img src="../../../assets/icons/violin.png" class="card-img-top" alt="...">
+              <div class="card-body pt-2">
+                <h5 class="card-title mb-2 text-center">Biola</h5>
+              </div>
+            </div>
+          </div>
+
+          <!-- Keyboard -->
+          <div class="col">
+            <div class="card border-0">
+              <img src="../../../assets/icons/keyboard.png" class="card-img-top" alt="...">
+              <div class="card-body pt-2">
+                <h5 class="card-title mb-2 text-center">Keyboard</h5>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  
+
   <!-- Footbar -->
   <?php
   require "../partials/footbar.php";

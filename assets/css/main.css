@@ -12,3 +12,10 @@ html {
   margin-left: 15px;
   background-color: black;
 }
+
+.square-img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}

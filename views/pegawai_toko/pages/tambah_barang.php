@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+if (!($_SESSION['role'] == "pegawai_toko")) {
+  header('Location: ../../../views/auth/pages/login.php');
+  exit;
+}
+?>
+
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
 
@@ -27,7 +36,7 @@
 
     <hr>
 
-    <form action="proses_tambah_barang.php" method="POST" enctype="multipart/form-data">
+    <form action="../../../process/util_pegawai/tambah_barang.php" method="POST" enctype="multipart/form-data">
       <div class="mb-3">
         <label for="nama" class="form-label">Nama Barang</label>
         <input type="text" class="form-control" id="nama" name="nama" required>
@@ -52,10 +61,10 @@
         </div>
 
         <div class="mb-3" style="width: 12%;">
-          <label for="quantity" class="form-label">Stok</label>
+          <label for="stok" class="form-label">Stok</label>
           <div class="input-group border border-black rounded-3 ">
             <button class="btn" type="button" id="btn-minus">-</button>
-            <input type="number" class="form-control text-center m-0 p-0" value="1" min="1" max="10" id="quantity">
+            <input type="number" class="form-control text-center m-0 p-0" value="1" min="1" max="10" id="stok" name="stok">
             <button class="btn" type="button" id="btn-plus">+</button>
           </div>
         </div>

@@ -1,3 +1,20 @@
+<?php
+session_start();
+
+if (isset($_SESSION['login'])) {
+  if ($_SESSION['role'] == 'admin') {
+    header("Location: ../../admin/pages/dashboard.php");
+    exit();
+  } elseif ($_SESSION['role'] == 'pegawai_toko') {
+    header("Location: ../../pegawai_toko/pages/semua_barang.php");
+    exit();
+  } elseif ($_SESSION['role'] == 'pelanggan') {
+    header("Location: ../../pelanggan/pages/beranda.php");
+    exit();
+  }
+}
+?>
+
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
 
@@ -19,7 +36,7 @@
       <div class="card-body m-3">
         <h4 class="card-subtitle mb-4 fw-bold" id="card-subtitle">MASUK</h4>
 
-        <form method="POST" action="../../../proses/login.php">
+        <form method="POST" action="../../../process/auth/login.php">
           <!-- Username-->
           <div class="mb-3">
             <label for="username" class="form-label fw-semibold text-body-secondary">Username</label>
