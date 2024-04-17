@@ -28,11 +28,11 @@ if (isset($_SESSION['login'])) {
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" crossorigin="anonymous">
 </head>
 
-<body class="bg-body-tertiary">
+<body class="bg-body-tertiary" style="background-image: url('../../../assets/images/background.jpg'); background-repeat: no-repeat; background-size: cover;">
   <main class="d-flex justify-content-center align-items-center flex-column" style="height: 100vh;">
-    <h2 class="card-title text-center mb-5 fw-bold">INI LOGO</h2>
+    <!-- <h2 class="card-title text-center mb-5 fw-bold">INI LOGO</h2> -->
 
-    <div class="card shadow rounded border-0 rounded-3" style="width: 22rem">
+    <div class="card shadow rounded border-0 rounded-3 " style="width: 22rem">
       <div class="card-body m-3">
         <h4 class="card-subtitle mb-4 fw-bold" id="card-subtitle">MASUK</h4>
 

@@ -5,39 +5,27 @@
         <!-- Kiri -->
         <div>
           <ul class="navbar-nav">
-            <!-- Logo -->
             <li class="nav-item">
-              <a class="navbar-brand fw-bold fs-3 ps-2" href="#">LOGO</a>
+              <a href="dashboard.php" class="text-decoration-none text-black">
+                <div class="d-flex align-items-center">
+                  <img src="../../../assets/images/logo.png" alt="" style="height: 50px" class="me-3">
+                  <h3 class="fw-bold">AMDIN PANEL</h3>
+                </div>
+              </a>
             </li>
         </div>
 
         <!-- Kanan -->
-        <div>
-          <!-- <ul class="navbar-nav"> -->
-            <!-- Hubungi kami -->
-            <!-- <li class="nav-item">
-              <a class="nav-link" href="#">Hubungi kami</a>
-            </li> -->
-
-            <!-- Wishlist -->
-            <!-- <li class="nav-item">
-              <a class="nav-link" href="#"><i class="fa-solid fa-heart"></i></a>
-            </li>
-
-            Keranjang -->
-            <!-- <li class="nav-item">
-              <a class="nav-link" href="#"><i class="fa-solid fa-cart-shopping"></i></a>
-            </li> -->
-
-            <!-- Akun -->
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fa-solid fa-user"></i>
-              </a>
-              <ul class="dropdown-menu dropdown-menu-lg-end">
-                <li><a class="dropdown-item" href="../../../process/auth/logout.php">Log out</a></li>
-              </ul>
-            </li>
+        <div class="d-flex align-items-center">
+          <!-- Akun -->
+          <li class="nav-item dropdown list-unstyled">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fa-solid fa-user"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-lg-end">
+              <li><a class="dropdown-item" href="../../../process/auth/logout.php">Log out</a></li>
+            </ul>
+          </li>
           </ul>
         </div>
       </div>

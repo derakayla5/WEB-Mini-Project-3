@@ -3,7 +3,7 @@
 require '../../koneksi.php';
 
 // Memeriksa apakah parameter 'id' telah diterima dari form
-if(isset($_POST['id'])) {
+if(isset($_POST['hapus_barang'])) {
     // Mengambil nilai ID barang dari form
     $id = $_POST['id'];
 

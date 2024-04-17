@@ -1,7 +1,8 @@
 <?php
-require("../../../koneksi.php");
+require ("../../../koneksi.php");
 
-$query = "SELECT * FROM keranjang";
+$query = "SELECT k.*, b.harga AS harga_satuan FROM keranjang k JOIN barang b ON k.nama_barang = b.nama";
+
 $result = mysqli_query($koneksi, $query);
 
 session_start();
@@ -22,8 +23,11 @@ if (!($_SESSION['role'] == "pelanggan")) {
 
   <!-- CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="../../../assets/css/main.css">
 </head>
 
@@ -41,24 +45,32 @@ if (!($_SESSION['role'] == "pelanggan")) {
         // Perulangan untuk menampilkan daftar barang
         while ($row = mysqli_fetch_assoc($result)) { ?>
           <form action="../../../process/util_pelanggan/hapus_barang.php" method="post">
-            <div class="d-flex">
+            <div class="d-flex align-items-center">
               <div class="me-3">
                 <?php
-                echo '<img class="square-img" src="../../.  /storage/img_barang/' . $row['gambar_barang'] . '" alt="Product Image" style="max-width: 175px; height: auto;">';
+                echo '<img class="square-img" src="../../../storage/img_barang/' . $row['gambar_barang'] . '" alt="Product Image" style="max-width: 175px; height: auto;">';
                 ?>
               </div>
 
-              <div class="">
-                <h5><?= $row['nama_barang'] ?></h5>
+              <div class="d-flex align-items-start flex-column">
+                <h5>
+                  <?= $row['nama_barang'] ?>
+                </h5>
 
                 <!-- Quantity -->
                 <div class="d-flex align-items-center mb-2">
-                  <input type="number" class="form-control text-center" value=<?= $row['jumlah_barang'] ?> min="1" max="10" id="stok" name="stok" data-harga="<?= $row['harga_barang'] ?>">
+                  Qty:
+                  <div class="ms-2">
+                    <input type="number" class="form-control form-control-sm text-center" value=<?= $row['jumlah_barang'] ?> min="1"
+                      max="10" id="stok" name="stok" data-harga="<?= $row['harga_satuan'] ?>">
+                  </div>
                 </div>
 
                 <!-- Harga -->
-                <div class=" fw-bold">
-                  <div class="fw-bold harga_barang"><?= $row['harga_barang'] ?></div>
+                <div class="mb-2">
+                  <div>Harga satuan: <span class="fw-bold">
+                      <?= $row['harga_satuan'] ?>
+                    </span></div>
                 </div>
                 <!-- Isi form -->
                 <button type="submit" name="aksi" value="hapus" class="btn btn-danger">Hapus</button>
@@ -82,7 +94,8 @@ if (!($_SESSION['role'] == "pelanggan")) {
             </div>
 
             <!-- Beli -->
-            <a href="#" class="btn btn-warning rounded-3 fw-semibold d-flex align-items-center justify-content-center mb-3">
+            <a href="#"
+              class="btn btn-warning rounded-3 fw-semibold d-flex align-items-center justify-content-center mb-3">
               <i class="fa-solid fa-bag-shopping me-2 fa-lg"></i> Beli
             </a>
           </div>
@@ -94,7 +107,8 @@ if (!($_SESSION['role'] == "pelanggan")) {
   <!-- Footbar -->
   <?php require "../partials/footbar.php"; ?>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    crossorigin="anonymous"></script>
   <script src="../../../assets/js/numeric-stepper.js"></script>
   <script src="../../../assets/js/keranjang.js"></script>
 </body>

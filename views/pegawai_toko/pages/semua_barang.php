@@ -197,8 +197,8 @@ if (!($_SESSION['role'] == "pegawai_toko")) {
 
                                                         <!-- Tombol hapus -->
                                                         <form action="../../../process/util_pegawai/hapus_barang.php" method="POST" style="display: inline-block;">
-                                                            <input type="hidden" name="_id" value="' . $row['id'] . '">
-                                                            <button type="submit" class="btn btn-danger" name="hapus">Hapus</button>
+                                                            <input type="hidden" name="id" value="' . $row['id'] . '">
+                                                            <button type="submit" class="btn btn-danger" name="hapus_barang">Hapus</button>
                                                         </form>
                                                     </div>
                                                 </div>

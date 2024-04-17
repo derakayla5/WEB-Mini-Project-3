@@ -19,11 +19,25 @@ if (!($_SESSION['role'] == "pelanggan")) {
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    crossorigin="anonymous">
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
 
   <link rel="stylesheet" href="../../../assets/css/main.css">
+
+  <style>
+    .custom-font {
+      font-family: "Montserrat";
+    }
+  </style>
 </head>
 
 <body class="">
@@ -47,9 +61,10 @@ if (!($_SESSION['role'] == "pelanggan")) {
           while ($rowCarousel = mysqli_fetch_assoc($resultCarousel)) {
             // Menampilkan indicator untuk setiap gambar carousel
             $active = $indicatorIndex == 0 ? 'active' : '';
-          ?>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<?= $indicatorIndex ?>" class="<?= $active ?>" aria-current="true" aria-label="Slide <?= $indicatorIndex + 1 ?>"></button>
-          <?php
+            ?>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<?= $indicatorIndex ?>"
+              class="<?= $active ?>" aria-current="true" aria-label="Slide <?= $indicatorIndex + 1 ?>"></button>
+            <?php
             $indicatorIndex++;
           }
           ?>
@@ -64,23 +79,92 @@ if (!($_SESSION['role'] == "pelanggan")) {
           while ($rowCarousel = mysqli_fetch_assoc($resultCarousel)) {
             // Menampilkan gambar carousel dalam tag <img>
             $active = $carouselIndex == 0 ? 'active' : '';
-          ?>
+            ?>
             <div class="carousel-item <?= $active ?>">
               <img src="../../../storage/carousel/<?= $rowCarousel["image_url"] ?>" class="d-block w-100" alt="...">
             </div>
-          <?php
+            <?php
             $carouselIndex++;
           }
           ?>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+          data-bs-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Previous</span>
         </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+          data-bs-slide="next">
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Next</span>
         </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Kategori barang -->
+  <div class="mt-5">
+    <div class="container">
+      <div class="card shadow-lg border border-black border-2">
+        <div class="card-body">
+          <h4 class="card-title text-center pb-3 custom-font">Temukan Berbagai Pilihan Alat Musik di Toko Kami</h4>
+
+          <div class="container mt-4">
+            <div class="row row-cols-1 row-cols-md-5 g-4">
+
+              <!-- Gitar -->
+              <div class="col d-flex justify-content-center">
+                <div class="card border-0">
+                  <img src="../../../assets/icons/gitar.png" class="card-img-top" alt="..." style="width: 100px;">
+                  <div class="card-body pt-2">
+                    <h5 class="card-title text-center">Gitar</h5>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Drum -->
+              <div class="col d-flex justify-content-center">
+                <div class="card border-0">
+                  <img src="../../../assets/icons/drum.png" class="card-img-top" alt="..." style="width: 100px;">
+                  <div class="card-body pt-2">
+                    <h5 class="card-title text-center">Drum</h5>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Trompet -->
+              <div class="col d-flex justify-content-center">
+                <div class="card border-0">
+                  <img src="../../../assets/icons/trumpet.png" class="card-img-top" alt="..." style="width: 100px;">
+                  <div class="card-body pt-2">
+                    <h5 class="card-title text-center">Trompet</h5>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Biola-->
+              <div class="col d-flex justify-content-center">
+                <div class="card border-0">
+                  <img src="../../../assets/icons/violin.png" class="card-img-top" alt="..." style="width: 100px;">
+                  <div class="card-body pt-2">
+                    <h5 class="card-title text-center">Biola</h5>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Keyboard -->
+              <div class="col d-flex justify-content-center">
+                <div class="card border-0">
+                  <img src="../../../assets/icons/keyboard.png" class="card-img-top mx-auto" alt="..."
+                    style="width: 100px;">
+                  <div class="card-body pt-2">
+                    <h5 class="card-title text-center">Keyboard</h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -93,30 +177,40 @@ if (!($_SESSION['role'] == "pelanggan")) {
       <div class="container mt-4">
         <div class="row row-cols-1 row-cols-md-5 g-4">
           <?php
-          $queryTop = "SELECT * FROM barang ORDER BY rating DESC LIMIT 5";
+          $queryTop = "SELECT b.*, AVG(u.rating) AS avg_rating, COUNT(u.rating) AS total_ulasan 
+             FROM barang b 
+             LEFT JOIN ulasan u ON b.id = u.id_barang 
+             GROUP BY b.id 
+             ORDER BY avg_rating DESC 
+             LIMIT 5";
+
           $resultTop = mysqli_query($koneksi, $queryTop);
 
           while ($rowTop = mysqli_fetch_assoc($resultTop)) {
-          ?>
+            ?>
             <div class="col">
-              <div class="card">
-                <img src="../<?= $rowTop["gambar"] ?>" class="card-img-top square-img" alt="...">
-                <div class="card-body">
-                  <!-- Nama barang -->
-                  <h5 class="card-title mb-2"><?= $rowTop["nama"] ?></h5>
+              <a href="detail_barang.php?id=<?= $rowTop["id"] ?>" class="text-decoration-none text-black">
 
-                  <!-- Rating -->
-                  <div class="mb-2">
-                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                    <?= $rowTop["rating"] ?>
+                <div class="card border-0 shadow">
+                  <img src="../../../storage/img_barang/<?= $rowTop["gambar"] ?>" class="card-img-top square-img"
+                    alt="...">
+                  <div class="card-body">
+                    <!-- Nama barang -->
+                    <h5 class="card-title mb-2">
+                      <?= $rowTop["nama"] ?>
+                    </h5>
+
+                    <!-- Rating -->
+                    <div class="mb-2">
+                      <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                      <?= round($rowTop["avg_rating"], 1) ?>/5 (
+                      <?= $rowTop["total_ulasan"] ?> ulasan)
+                    </div>
                   </div>
-
-                  <!-- Harga -->
-                  <p class="m-0 fw-bold fs-5"><?= number_format($rowTop["harga"], 0, ',', '.')  ?></p>
                 </div>
-              </div>
+              </a>
             </div>
-          <?php
+            <?php
           }
           ?>
         </div>
@@ -128,100 +222,52 @@ if (!($_SESSION['role'] == "pelanggan")) {
   <div class="mt-5">
     <div class="container">
       <h4 class="fw-bold horizontal-line">ALAT MUSIK TERBARU</h4>
-      <h6>Lihat Semua Barang <i class="fa-solid fa-chevron-right"></i></h6>
+      <a href="semua_barang.php" class="text-decoration-none text-black">
+        <h6>Lihat Semua Barang <i class="fa-solid fa-chevron-right"></i></h6>
+      </a>
 
       <div class="container mt-4">
         <div class="row row-cols-1 row-cols-md-5 g-4">
           <?php
-          $queryNew = "SELECT * FROM barang ORDER BY created_at DESC LIMIT 5";
+          $queryNew = "SELECT b.*, AVG(u.rating) AS avg_rating, COUNT(u.rating) AS total_ulasan 
+             FROM barang b 
+             LEFT JOIN ulasan u ON b.id = u.id_barang 
+             GROUP BY b.id 
+             ORDER BY b.created_at DESC 
+             LIMIT 5";
           $resultNew = mysqli_query($koneksi, $queryNew);
 
           while ($rowNew = mysqli_fetch_assoc($resultNew)) {
-          ?>
+            ?>
             <div class="col">
-              <div class="card">
-                <img src="../<?= $rowNew["gambar"] ?>" class="card-img-top square-img" alt="...">
-                <div class="card-body">
-                  <!-- Nama barang -->
-                  <h5 class="card-title mb-2"><?= $rowNew["nama"] ?></h5>
+              <a href="detail_barang.php?id=<?= $rowNew["id"] ?>" class="text-decoration-none text-black">
+                <div class="card border-0 shadow">
+                  <img src="../../../storage/img_barang/<?= $rowNew["gambar"] ?>" class="card-img-top square-img"
+                    alt="...">
+                  <div class="card-body">
+                    <!-- Nama barang -->
+                    <h5 class="card-title mb-2">
+                      <?= $rowNew["nama"] ?>
+                    </h5>
 
-                  <!-- Rating -->
-                  <div class="mb-2">
-                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                    <?= $rowNew["rating"] ?>
+                    <!-- Rating -->
+                    <div class="mb-2">
+                      <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                      <?= round($rowNew["avg_rating"], 1) ?>/5 (
+                      <?= $rowNew["total_ulasan"] ?> ulasan)
+                    </div>
+
+                    <!-- Harga -->
+                    <p class="m-0 fw-bold fs-5">
+                      <?= number_format($rowNew["harga"], 0, ',', '.') ?>
+                    </p>
                   </div>
-
-                  <!-- Harga -->
-                  <p class="m-0 fw-bold fs-5"><?= number_format($rowNew["harga"], 0, ',', '.')  ?></p>
                 </div>
-              </div>
+              </a>
             </div>
-          <?php
+            <?php
           }
           ?>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Kategori barang -->
-  <!-- Kategori barang -->
-  <div class="mt-5" id="kategoriBarang">
-    <div class="container">
-      <h4 class="fw-bold horizontal-line">KATEGORI ALAT MUSIK</h4>
-
-      <div class="container mt-4">
-        <div class="row row-cols-1 row-cols-md-5 g-4">
-
-          <!-- Gitar -->
-          <div class="col">
-            <div class="card border-0">
-              <img src="../../../assets/icons/gitar.png" class="card-img-top" alt="...">
-              <div class="card-body pt-2">
-                <h5 class="card-title mb-2 text-center">Gitar</h5>
-              </div>
-            </div>
-          </div>
-
-          <!-- Drum -->
-          <div class="col">
-            <div class="card border-0">
-              <img src="../../../assets/icons/drum.png" class="card-img-top" alt="...">
-              <div class="card-body pt-2">
-                <h5 class="card-title mb-2 text-center">Drum</h5>
-              </div>
-            </div>
-          </div>
-
-          <!-- Trompet -->
-          <div class="col">
-            <div class="card border-0">
-              <img src="../../../assets/icons/trumpet.png" class="card-img-top" alt="...">
-              <div class="card-body pt-2">
-                <h5 class="card-title mb-2 text-center">Trompet</h5>
-              </div>
-            </div>
-          </div>
-
-          <!-- Biola -->
-          <div class="col">
-            <div class="card border-0">
-              <img src="../../../assets/icons/violin.png" class="card-img-top" alt="...">
-              <div class="card-body pt-2">
-                <h5 class="card-title mb-2 text-center">Biola</h5>
-              </div>
-            </div>
-          </div>
-
-          <!-- Keyboard -->
-          <div class="col">
-            <div class="card border-0">
-              <img src="../../../assets/icons/keyboard.png" class="card-img-top" alt="...">
-              <div class="card-body pt-2">
-                <h5 class="card-title mb-2 text-center">Keyboard</h5>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -232,7 +278,8 @@ if (!($_SESSION['role'] == "pelanggan")) {
   require "../partials/footbar.php";
   ?>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    crossorigin="anonymous"></script>
 </body>
 
 </html>

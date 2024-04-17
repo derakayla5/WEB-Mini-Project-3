@@ -8,13 +8,16 @@
           <ul class="navbar-nav">
             <!-- Logo -->
             <li class="nav-item">
-              <a class="navbar-brand fw-bold fs-3 ps-2" href="beranda.php">LOGO</a>
+              <a href="beranda.php" class="text-decoration-none text-black">
+                <img src="../../../assets/images/logo.png" alt="" style="height: 50px" class="me-3">
+              </a>
             </li>
 
             <!-- Search -->
             <li class="nav-item d-flex align-items-center">
               <form action="semua_barang.php" method="GET" role="search">
-                <input class="form-control me-2 rounded-1 bg-secondary-subtle" type="search" name="keyword" placeholder="Cari produk kami di sini" aria-label="Search" style="width: 80vh;">
+                <input class="form-control me-2 rounded-1 bg-secondary-subtle" type="search" name="keyword"
+                  placeholder="Cari produk kami di sini" aria-label="Search" style="width: 80vh;">
               </form>
             </li>
           </ul>
@@ -35,7 +38,8 @@
 
             <!-- Akun -->
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
                 <i class="fa-solid fa-user"></i>
               </a>
               <ul class="dropdown-menu dropdown-menu-lg-end">
@@ -57,11 +61,6 @@
           <!-- Semua barang -->
           <li class="nav-item me-4">
             <a class="nav-link fw-bold text-black" href="semua_barang.php">SEMUA BARANG</a>
-          </li>
-
-          <!-- Kategori barang -->
-          <li class="nav-item me-4">
-            <a class="nav-link fw-bold text-black" href="beranda.php#kategoriBarang">KATEGORI BARANG</a>
           </li>
         </ul>
       </div>

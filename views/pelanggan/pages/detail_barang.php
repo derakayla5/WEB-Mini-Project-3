@@ -1,5 +1,5 @@
 <?php
-require("../../../koneksi.php");
+require ("../../../koneksi.php");
 
 // Fetch product details from the database
 if (isset($_GET['id'])) {
@@ -23,8 +23,8 @@ if (isset($_GET['id'])) {
 session_start();
 
 if (!($_SESSION['role'] == "pelanggan")) {
-  header('Location: ../../../views/auth/pages/login.php');
-  exit;
+    header('Location: ../../../views/auth/pages/login.php');
+    exit;
 }
 ?>
 
@@ -34,7 +34,9 @@ if (!($_SESSION['role'] == "pelanggan")) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $row['nama']; ?> | Tamusic</title>
+    <title>
+        <?php echo $row['nama']; ?> | Tamusic
+    </title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
         crossorigin="anonymous">
@@ -51,22 +53,31 @@ if (!($_SESSION['role'] == "pelanggan")) {
     <div class="container mt-4">
         <!-- Product Name and Rating -->
         <div>
-            <h2 class="fw-bold"><?php echo $row['nama']; ?></h2>
+            <h2 class="fw-bold">
+                <?php echo $row['nama']; ?>
+            </h2>
             <!-- Rating -->
             <?php
-            // Query untuk mendapatkan rata-rata rating dari ulasan produk
-            $query_rating = "SELECT AVG(rating) AS avg_rating FROM ulasan WHERE id_barang = $product_id";
-            $result_rating = mysqli_query($koneksi, $query_rating);
-            $row_rating = mysqli_fetch_assoc($result_rating);
-            $avg_rating = round($row_rating['avg_rating'], 1); // Membulatkan rata-rata rating ke satu desimal
-            ?>
+            // Setelah berhasil menambahkan ulasan baru
+            
+            // Hitung ulang rata-rata rating dan jumlah ulasan
+            $query_rating_count = "SELECT COUNT(*) AS count_rating, AVG(rating) AS avg_rating FROM ulasan WHERE id_barang = $product_id";
+            $result_rating_count = mysqli_query($koneksi, $query_rating_count);
+            $row_rating_count = mysqli_fetch_assoc($result_rating_count);
 
+            $count_rating = $row_rating_count['count_rating'];
+            $avg_rating = round($row_rating_count['avg_rating'], 1);
+
+            // Update nilai kolom rating dan jumlah_ulasan di tabel barang
+            $update_query = "UPDATE barang SET rating = $avg_rating, jumlah_ulasan = $count_rating WHERE id = $product_id";
+            mysqli_query($koneksi, $update_query);
+            ?>
             <div>
                 <?php
                 // Tampilkan bintang sesuai dengan rata-rata rating
                 $full_stars = intval($avg_rating); // Jumlah bintang penuh
                 $half_star = $avg_rating - $full_stars; // Bagian desimal dari rata-rata rating
-
+                
                 // Tampilkan bintang penuh
                 for ($i = 0; $i < $full_stars; $i++) {
                     echo '<i class="fa-solid fa-star" style="color: #FFD43B;"></i>';
@@ -116,8 +127,7 @@ if (!($_SESSION['role'] == "pelanggan")) {
                             <div class="d-flex align-items-center mb-2">
                                 <div class="input-group w-50 border border-black rounded-3">
                                     <input type="number" class="form-control text-center" value="1" min="1" max="10"
-                                        id="stok" name="stok"
-                                        data-harga="<?php echo $row['harga']; ?>">
+                                        id="stok" name="stok" data-harga="<?php echo $row['harga']; ?>">
                                 </div>
                             </div>
                             <!-- Display Subtotal -->
@@ -157,23 +167,36 @@ if (!($_SESSION['role'] == "pelanggan")) {
                     class="fa-solid fa-chevron-right"></i></a>
             <div class="container mt-4">
                 <div class="row row-cols-1 row-cols-md-5 g-4">
-                    <?php
+                <?php
+            // Query untuk mendapatkan produk terkait dengan jenis_barang yang sama
+            $jenis_barang = mysqli_real_escape_string($koneksi, $row['jenis_barang']);
+            $query_produk_terkait = "SELECT * FROM barang WHERE jenis_barang = '$jenis_barang' AND id != $product_id LIMIT 5";
+            $result_produk_terkait = mysqli_query($koneksi, $query_produk_terkait);
+
+         while ($row_produk_terkait = mysqli_fetch_assoc($result_produk_terkait)) {
+            $id_produk_terkait = $row_produk_terkait['id'];
+                $query_rating_produk_terkait = "SELECT AVG(rating) AS avg_rating FROM ulasan WHERE id_barang = $id_produk_terkait";
+                $result_rating_produk_terkait = mysqli_query($koneksi, $query_rating_produk_terkait);
+                $row_rating_produk_terkait = mysqli_fetch_assoc($result_rating_produk_terkait);
+
+                // Rating produk terkait
+                $avg_rating_produk_terkait = round($row_rating_produk_terkait['avg_rating'], 1);
+
                     // Here, you can display related products dynamically
-                    for ($i = 0; $i < 5; $i++) {
                         ?>
                         <div class="col">
                             <div class="card">
-                                <img src="https://dummyimage.com/360x360/000/ffffff" class="card-img-top" alt="...">
+                                <img src="../../../storage/img_barang/<?php echo $row_produk_terkait["gambar"] ?>" class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <!-- Nama barang -->
-                                    <h5 class="card-title mb-2">Nama Alat Musik Keren Banget</h5>
+                                    <h5 class="card-title mb-2"><?php echo $row_produk_terkait['nama'] ?></h5>
                                     <!-- Rating -->
                                     <div class="mb-2">
                                         <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                                        4.2/5
+                                        <?php echo $avg_rating_produk_terkait; ?>/5
                                     </div>
                                     <!-- Harga -->
-                                    <p class="m-0 fw-bold fs-5">Rp18.000.000</p>
+                                    <p class="m-0 fw-bold fs-5">Rp <?php echo number_format($row_produk_terkait['harga'], 0, ',', '.');?></p>
                                 </div>
                             </div>
                         </div>

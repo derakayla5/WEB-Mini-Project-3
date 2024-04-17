@@ -32,7 +32,15 @@ $result = $koneksi->query($sql_select);
 	<!-- Navbar -->
 	<?php require "../partials/navbar.php"; ?>
 	<div class="container mt-4">
-		<h1 class="fw-bold mb-4">User List</h1>
+		<div class="d-flex align-items-center justify-content-between mb-4">
+			<h1 class="fw-bold m-0">User List</h1>
+			<div>
+				<a href="tambah_akun.php" class="text-decoration-none text-black">
+					<i class="fa-solid fa-circle-plus fa-2xl"></i>
+					<span class="fs-5">Tambah</span>
+				</a>
+			</div>
+		</div>
 		<div class="card">
 			<div class="card-body">
 				<div class="table-responsive">

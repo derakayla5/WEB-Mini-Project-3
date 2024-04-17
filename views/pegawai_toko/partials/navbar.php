@@ -7,7 +7,9 @@
           <ul class="navbar-nav">
             <!-- Logo -->
             <li class="nav-item">
-              <a class="navbar-brand fw-bold fs-3 ps-2" href="#">LOGO</a>
+              <a href="semua_barang.php" class="text-decoration-none text-black">
+                <img src="../../../assets/images/logo.png" alt="" style="height: 50px" class="me-3">
+              </a>
             </li>
 
             <!-- Barang terbaik -->
@@ -26,7 +28,7 @@
         <!-- Kanan -->
         <div class="d-flex align-items-center">
           <!-- Akun -->
-          <li class="nav-item dropdown list-unstyled ">
+          <li class="nav-item dropdown list-unstyled">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="fa-solid fa-user"></i>
             </a>

@@ -2,11 +2,22 @@
 require '../../koneksi.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nama = $_POST["nama"];
     $username = $_POST["username"];
     $password = $_POST["password"];
+    $konfirmasi_password = $_POST["konfirmasi_password"];
+    
+    if($password <> $konfirmasi_password) {
+        echo "
+        <script>
+        alert('Password tidak sesuai dengan konfirmasi password!');
+        document.location.href = '../../views/auth/pages/register.php';
+        </script>
+        ";
+        exit(); 
+    }
+    
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-    $nama = $_POST["nama"];
-
     if (strlen($password) < 8) {
         echo "
             <script>
